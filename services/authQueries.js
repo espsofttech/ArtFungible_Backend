@@ -1,0 +1,25 @@
+var db = require('../utils/connection');
+
+module.exports = {
+    getUsersEmail: "SELECT * FROM users WHERE email = ?",
+    insertUserData : "insert into users SET ?",
+    updateStatus : "update users SET is_email_verify=1 where email=?",
+    updatepassword : "update users SET password=? where email=?",
+    updateUser : "Update users SET ? where email=?",    
+    getCountry : "Select id,name,code from country order by name",
+    getUserProfile : "Select coalesce(user_name,concat(last_name,left(first_name,3),'#')) as user_name,email,first_name,last_name,date_format(dob,'%Y-%m-%d') as dob,phone,country_id,city,address, house_number from users where email=?",
+    getPassword : "Select id,password from users where email =?",
+    updateAccount : "Update users SET deactivate_account=1, email=concat(email,'_id_',id,'_Deactivated') where email=?",
+    updateProfile : "update users SET profile_pic=? where email=?",
+    getProfile :  "Select profile_pic from users where email=?",
+    list : "Select title,author,price,item_image,price from marketplace ",
+    saveContactRequest : "insert into contact_us SET ?",
+    saveHelpCenterRequest : "insert into help_center SET ?",
+    getCategoryName : "SELECT name from item_category WHERE id = ?",
+    getNftList : "SELECT * FROM item WHERE sell_type = ? ORDER BY id DESC limit 9",
+    getSubscriber : "Select * from subscriber where email=?",
+    addSubscriber : "insert into subscriber SET ?",
+    subscriberList:"SELECT * FROM `subscriber` ORDER BY id DESC",
+    gerUserRefundManagementQry : "SELECT item.name, item.file_type, item.image, item_bid.id ,item.token_id, item_bid.bid_price, item_bid.crypto_amount, item_bid.amounTrxHash, item_bid.status, item_bid.user_id, item_bid.refund_hash, users.user_name FROM item_bid LEFT JOIN item ON item_bid.item_id = item.id LEFT JOIN users ON item_bid.user_id = users.id WHERE (status = 3 OR status=2) AND item_bid.user_id = ? ORDER BY item_bid.id DESC",
+    getProductImages : "SELECT getImageArray(?) as multiimage",
+}
